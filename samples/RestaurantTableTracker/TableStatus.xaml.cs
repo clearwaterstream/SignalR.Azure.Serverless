@@ -20,9 +20,15 @@ namespace RestaurantTableTracker
     /// </summary>
     public partial class TableStatus : UserControl
     {
+        readonly Brush defaultLblBg;
+        readonly Brush defaultLblFg;
+
         public TableStatus()
         {
             InitializeComponent();
+
+            defaultLblBg = lblTableName.Background;
+            defaultLblFg = lblTableName.Foreground;
         }
 
         public string TableName
@@ -35,6 +41,18 @@ namespace RestaurantTableTracker
             {
                 lblTableName.Content = value;
             }
+        }
+
+        private void BtnEmpty_Click(object sender, RoutedEventArgs e)
+        {
+            lblTableName.Background = Brushes.SeaGreen;
+            lblTableName.Foreground = Brushes.White;
+        }
+
+        private void BtnOccupied_Click(object sender, RoutedEventArgs e)
+        {
+            lblTableName.Background = Brushes.IndianRed;
+            lblTableName.Foreground = Brushes.White;
         }
     }
 }

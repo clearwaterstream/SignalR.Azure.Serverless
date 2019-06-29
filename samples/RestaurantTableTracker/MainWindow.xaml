@@ -20,7 +20,8 @@
             <local:TableStatus Margin="5" x:Name="tbl10" TableName="Table 10" />
         </WrapPanel>
         <StatusBar VerticalAlignment="Bottom">
-            <Label Name="lblStatus" Content="Offline" Foreground="Crimson" />
+            <Label Name="lblConnStatus" Content="Offline" Background="Crimson" Foreground="White" />
+            <Label Name="lblLastAction" />
         </StatusBar>
     </Grid>
 </Window>

@@ -17,14 +17,14 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Name="lblTableName" Content="Table 1" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Center" />
+            <Label Name="lblTableName" Content="Table 1" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="3" />
             <Image Grid.Row="1" Grid.ColumnSpan="2" RenderOptions.BitmapScalingMode="HighQuality" Stretch="None" >
                 <Image.Source>
                     <BitmapImage UriSource="table_256.png"></BitmapImage>
                 </Image.Source>
             </Image>
-            <Button x:Name="btnEmpty" Content="Empty" Grid.Row="2" FontSize="14" Margin="5" Padding="3" />
-            <Button x:Name="btnOccupied" Content="Occupied" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="5" Padding="3" />
+            <Button x:Name="btnEmpty" Content="Empty" Grid.Row="2" FontSize="14" Margin="5" Padding="3" Click="BtnEmpty_Click" />
+            <Button x:Name="btnOccupied" Content="Occupied" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="5" Padding="3" Click="BtnOccupied_Click" />
         </Grid>
     </Border>
 </UserControl>
