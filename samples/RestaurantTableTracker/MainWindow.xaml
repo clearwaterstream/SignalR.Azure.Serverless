@@ -1,0 +1,26 @@
+﻿<Window x:Class="RestaurantTableTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RestaurantTableTracker"
+        mc:Ignorable="d"
+        Title="Restaurant Table Tracker" Height="600" Width="1068">
+    <Grid>
+        <WrapPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+            <local:TableStatus Margin="5" x:Name="tbl1" TableName="Table 1" />
+            <local:TableStatus Margin="5" x:Name="tbl2" TableName="Table 2" />
+            <local:TableStatus Margin="5" x:Name="tbl3" TableName="Table 3" />
+            <local:TableStatus Margin="5" x:Name="tbl4" TableName="Table 4" />
+            <local:TableStatus Margin="5" x:Name="tbl5" TableName="Table 5" />
+            <local:TableStatus Margin="5" x:Name="tbl6" TableName="Table 6" />
+            <local:TableStatus Margin="5" x:Name="tbl7" TableName="Table 7" />
+            <local:TableStatus Margin="5" x:Name="tbl8" TableName="Table 8" />
+            <local:TableStatus Margin="5" x:Name="tbl9" TableName="Table 9" />
+            <local:TableStatus Margin="5" x:Name="tbl10" TableName="Table 10" />
+        </WrapPanel>
+        <StatusBar VerticalAlignment="Bottom">
+            <Label Name="lblStatus" Content="Offline" Foreground="Crimson" />
+        </StatusBar>
+    </Grid>
+</Window>
