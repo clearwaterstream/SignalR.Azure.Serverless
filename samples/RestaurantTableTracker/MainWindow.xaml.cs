@@ -129,7 +129,7 @@ namespace RestaurantTableTracker
                 arguments = new object[] { tableId, status }
             };
 
-            await signalRApiClient.BroadcastToAllClients("user-x", hubName: "default", msg);
+            await signalRApiClient.BroadcastToAllClients(senderUserId: "user-x", hubName: "default", msg);
         }
     }
 }
