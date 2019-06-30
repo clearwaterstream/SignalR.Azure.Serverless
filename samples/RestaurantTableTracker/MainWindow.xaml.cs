@@ -33,6 +33,8 @@ namespace RestaurantTableTracker
 
         HubConnection signalRHubConnection;
 
+        volatile bool closing = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -94,7 +96,7 @@ namespace RestaurantTableTracker
             {
                 Dispatcher.Invoke(() =>
                 {
-                    if(tblControlsById.TryGetValue(tableId, out TableStatusControl tblControl))
+                    if (tblControlsById.TryGetValue(tableId, out TableStatusControl tblControl))
                     {
                         tblControl.Status = status;
 
@@ -103,22 +105,74 @@ namespace RestaurantTableTracker
                 });
             });
 
+            SetupConnectionRetry();
+
             await signalRHubConnection.StartAsync();
 
-            lblConnStatus.Content = "Connected";
+            lblConnStatus.Content = "Online";
             lblConnStatus.Background = Brushes.SeaGreen;
+
+            lblLastAction.Content = $"Connected on {DateTime.Now}";
+        }
+
+        private void SetupConnectionRetry()
+        {
+            signalRHubConnection.Closed += async (closedErr) =>
+            {
+                if (closing)
+                    return;
+
+                Exception connEx = null;
+
+                int retryCount = 1;
+                do
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        lblConnStatus.Content = "Offline. Trying to connect...";
+                        lblConnStatus.Background = Brushes.Crimson;
+
+                        lblLastAction.Content = $"attempt #{retryCount++} {DateTime.Now}";
+                    });
+
+                    await Task.Delay(3000); // wait 3 seconds
+
+                    try
+                    {
+                        await signalRHubConnection.StartAsync();
+
+                        connEx = null;
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            lblConnStatus.Content = "Online";
+                            lblConnStatus.Background = Brushes.SeaGreen;
+
+                            lblLastAction.Content = $"Connected on {DateTime.Now}";
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        connEx = ex;
+                    }
+
+                } while (connEx != null);
+            };
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            await InitSignalR();
-        }
+            try
+            {
+                await InitSignalR();
+            }
+            catch(Exception ex)
+            {
+                lblConnStatus.Content = "Offline";
+                lblConnStatus.Background = Brushes.Crimson;
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            signalRApiHttpClient?.Dispose();
-
-            signalRHubConnection?.DisposeAsync(); // awaiting this causes an issue ...
+                lblLastAction.Content = ex.Message;
+            }
         }
 
         async Task UserChangedTableStatus(int tableId, string status)
@@ -130,6 +184,15 @@ namespace RestaurantTableTracker
             };
 
             await signalRApiClient.BroadcastToAllClients(senderUserId: "user-x", hubName: "default", msg);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            closing = true;
+
+            signalRApiHttpClient?.Dispose();
+
+            signalRHubConnection?.DisposeAsync(); // awaiting this causes an issue ...
         }
     }
 }
