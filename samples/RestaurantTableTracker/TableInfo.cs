@@ -8,7 +8,7 @@ namespace RestaurantTableTracker
 {
     public class TableInfo
     {
-        public string TableName { get; set; }
+        public int TableId { get; set; }
         public string Status { get; set; }
     }
 

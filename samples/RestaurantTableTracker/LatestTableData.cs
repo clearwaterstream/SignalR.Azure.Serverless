@@ -10,16 +10,15 @@ namespace RestaurantTableTracker
     {
         public LatestTableData()
         {
-            for(int i = 1; i < 13; i++)
+            for(int i = 1; i < 11; i++)
             {
-                Add(new TableInfo() { TableName = $"Table {i}", Status = "empty" });
+                Add(new TableInfo() { TableId = i, Status = "empty" });
             }
 
             this[1].Status = TableStatus.occupied;
             this[3].Status = TableStatus.occupied;
             this[4].Status = TableStatus.occupied;
             this[7].Status = TableStatus.occupied;
-            this[11].Status = TableStatus.occupied;
         }
     }
 }

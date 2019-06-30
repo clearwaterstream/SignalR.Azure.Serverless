@@ -24,6 +24,9 @@ namespace RestaurantTableTracker
         readonly Brush defaultLblFg;
 
         string status;
+        int tableId;
+
+        public event Func<int, string, Task> StatusChanged;
 
         public TableStatusControl()
         {
@@ -33,15 +36,17 @@ namespace RestaurantTableTracker
             defaultLblFg = lblTableName.Foreground;
         }
 
-        public string TableName
+        public int TableId
         {
             get
             {
-                return (string)lblTableName.Content;
+                return tableId;
             }
             set
             {
-                lblTableName.Content = value;
+                tableId = value;
+
+                lblTableName.Content = $"Table {tableId}";
             }
         }
 
@@ -70,12 +75,12 @@ namespace RestaurantTableTracker
 
         private void BtnEmpty_Click(object sender, RoutedEventArgs e)
         {
-            Status = TableStatus.empty;
+            StatusChanged?.Invoke(tableId, TableStatus.empty);
         }
 
         private void BtnOccupied_Click(object sender, RoutedEventArgs e)
         {
-            Status = TableStatus.occupied;
+            StatusChanged?.Invoke(tableId, TableStatus.occupied);
         }
     }
 }
