@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RestaurantTableTracker"
         mc:Ignorable="d"
-        Title="Restaurant Table Tracker" Height="600" Width="1068">
+        Title="Restaurant Table Tracker" Height="600" Width="1100">
     <Grid>
         <WrapPanel x:Name="pnlTables" HorizontalAlignment="Center" Margin="0,10,0,0">
         </WrapPanel>
