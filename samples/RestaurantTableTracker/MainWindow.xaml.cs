@@ -25,6 +25,16 @@ namespace RestaurantTableTracker
         public MainWindow()
         {
             InitializeComponent();
+
+            var latestTableData = new LatestTableData(); // pretend we resolved it from an API, etc
+
+            int i = 1;
+            foreach (var entry in latestTableData)
+            {
+                var controlName = $"tbl{i}";
+
+                pnlTables.Children.Add(new TableStatusControl() { TableName = entry.TableName, Status = entry.Status, Name = controlName });
+            }
         }
 
         void InitSignalR()

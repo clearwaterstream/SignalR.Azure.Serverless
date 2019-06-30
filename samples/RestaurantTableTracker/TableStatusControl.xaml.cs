@@ -18,12 +18,14 @@ namespace RestaurantTableTracker
     /// <summary>
     /// Interaction logic for TableStatus.xaml
     /// </summary>
-    public partial class TableStatus : UserControl
+    public partial class TableStatusControl : UserControl
     {
         readonly Brush defaultLblBg;
         readonly Brush defaultLblFg;
 
-        public TableStatus()
+        string status;
+
+        public TableStatusControl()
         {
             InitializeComponent();
 
@@ -43,16 +45,37 @@ namespace RestaurantTableTracker
             }
         }
 
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+
+                if (TableStatus.empty.Equals(status, StringComparison.OrdinalIgnoreCase))
+                {
+                    lblTableName.Background = Brushes.SeaGreen;
+                    lblTableName.Foreground = Brushes.White;
+                }
+                else if(TableStatus.occupied.Equals(status, StringComparison.OrdinalIgnoreCase))
+                {
+                    lblTableName.Background = Brushes.IndianRed;
+                    lblTableName.Foreground = Brushes.White;
+                }
+            }
+        }
+
         private void BtnEmpty_Click(object sender, RoutedEventArgs e)
         {
-            lblTableName.Background = Brushes.SeaGreen;
-            lblTableName.Foreground = Brushes.White;
+            Status = TableStatus.empty;
         }
 
         private void BtnOccupied_Click(object sender, RoutedEventArgs e)
         {
-            lblTableName.Background = Brushes.IndianRed;
-            lblTableName.Foreground = Brushes.White;
+            Status = TableStatus.occupied;
         }
     }
 }

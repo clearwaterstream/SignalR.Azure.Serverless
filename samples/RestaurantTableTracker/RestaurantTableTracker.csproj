@@ -59,8 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TableStatus.xaml.cs">
-      <DependentUpon>TableStatus.xaml</DependentUpon>
+    <Compile Include="LatestTableData.cs" />
+    <Compile Include="TableInfo.cs" />
+    <Compile Include="TableStatusControl.xaml.cs">
+      <DependentUpon>TableStatusControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,7 +76,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TableStatus.xaml">
+    <Page Include="TableStatusControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
