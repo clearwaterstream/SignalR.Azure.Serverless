@@ -44,7 +44,7 @@ namespace PubSubConsoleApp
 
         public async Task PublishTestMessage()
         {
-            using (var httpClient = new HttpClient())
+            using (var httpClient = new HttpClient()) // it is recommened that you re-use the HttpClient
             {
                 var signalRApiClient = new SignalRApiClient(httpClient, signalRHubHelper);
 

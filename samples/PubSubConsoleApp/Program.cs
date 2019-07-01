@@ -16,6 +16,7 @@ namespace PubSubConsoleApp
 
             // copy the CONNECTION STRING value from the Azure Portal under SingalR > [item] > Keys (under Settings)
             // then in the csproj dir, run dotnet user-secrets set "signalRConnString" "conn_string_value"
+            // see https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows
             var connStr = config["signalRConnString"];
 
             var sample = new PubSubSample();
