@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace PubSubConsoleApp
 {
-    public class PubSubSample : IDisposable
+    public class PubSubSample
     {
-        readonly HttpClient signalRApiHttpClient = new HttpClient();
-        readonly SignalRHubHelper signalRHubHelper;
-        readonly HubConnection signalRHubConnection;
+        SignalRHubHelper signalRHubHelper;
+        HubConnection signalRHubConnection;
 
-        public PubSubSample(string connString)
+        public async Task ListenToEvents(string connString)
         {
             signalRHubHelper = new SignalRHubHelper(connString);
 
@@ -36,37 +35,32 @@ namespace PubSubConsoleApp
             {
                 Console.WriteLine($"Device {deviceId} changed status to {status}");
             });
-        }
 
-        public async Task Run()
-        {
             // start listening to published events
             await signalRHubConnection.StartAsync();
 
             Console.WriteLine("Listening for events...");
-
-            var signalRApiClient = new SignalRApiClient(signalRApiHttpClient, signalRHubHelper);
-
-            var msg = new SignalRMessage()
-            {
-                target = "StatusChanged",
-                arguments = new object[] { "device_1", "offline" }
-            };
-
-            // send a test message
-            await signalRApiClient.BroadcastToAllClients(senderUserId: "user-x", hubName: "default_hub", msg);
         }
 
-        public async Task Stop()
+        public async Task PublishTestMessage()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var signalRApiClient = new SignalRApiClient(httpClient, signalRHubHelper);
+
+                var msg = new SignalRMessage()
+                {
+                    target = "StatusChanged",
+                    arguments = new object[] { "device_1", "offline" }
+                };
+
+                await signalRApiClient.BroadcastToAllClients(senderUserId: "user-x", hubName: "default_hub", msg);
+            }
+        }
+
+        public async Task StopListeningToEvents()
         {
             await signalRHubConnection.DisposeAsync();
-        }
-
-        public void Dispose()
-        {
-            signalRApiHttpClient?.Dispose();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

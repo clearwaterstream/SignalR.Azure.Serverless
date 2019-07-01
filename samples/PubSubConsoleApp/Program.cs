@@ -18,14 +18,15 @@ namespace PubSubConsoleApp
             // then in the csproj dir, run dotnet user-secrets set "signalRConnString" "conn_string_value"
             var connStr = config["signalRConnString"];
 
-            using (var sample = new PubSubSample(connStr))
-            {
-                await sample.Run();
+            var sample = new PubSubSample();
 
-                await Task.Delay(3000);
+            await sample.ListenToEvents(connStr);
 
-                await sample.Stop();
-            }
+            await sample.PublishTestMessage();
+
+            await Task.Delay(3000);
+
+            await sample.StopListeningToEvents();
 
             Console.Read();
         }
