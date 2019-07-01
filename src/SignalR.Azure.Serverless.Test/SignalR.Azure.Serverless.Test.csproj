@@ -17,8 +17,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\src\SignalR.Azure.Serverless.csproj" />
-  </ItemGroup>
-
 </Project>
