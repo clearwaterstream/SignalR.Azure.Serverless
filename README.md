@@ -1,7 +1,7 @@
 # SignalR.Azure.Serverless
-A helper library for publishing and subscribing to SignalR service running on Azure in serverless mode
+A helper library for publishing and subscribing to SignalR service running on Azure in serverless mode.
 
-With SignalR serverless, you can publish and subscribe to messages without the need to create an ASP.NET Core API App. You may use this library in ASP.NET Core applications, Xamarin, WinForm, WPF, or Console apps. Unlike SNS or Azure Event Grid, any app can subscribe to the feed (and publish) so long as the app knows the `AccessKey`.
+With SignalR serverless, you can publish and subscribe to messages without the need to create an ASP.NET Core API App. You may use this library in ASP.NET Core, Xamarin, WinForm, WPF, or Console applications. Unlike SNS or Azure Event Grid, any app can subscribe to the feed (and publish) so long as the app knows the `AccessKey`.
 
 SignalR is not a queue, it's an opportunistic broadcaster. SignalR will broadcast an event to whichever clients are connected to the hub at the time of the event. Any clients which are not connected will miss the event. Sometimes this behaviour is desired.
 
@@ -65,3 +65,4 @@ public class PubSubSample
     }
 }
 ```
+The code is based on samples published by @vavjeeva and update to v1 of SignalR API
