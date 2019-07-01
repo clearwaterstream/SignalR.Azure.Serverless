@@ -65,4 +65,4 @@ public class PubSubSample
     }
 }
 ```
-The code is based on samples published by @vavjeeva and update to v1 of SignalR API
+The code is based on samples published by [vavjeeva](https://github.com/vavjeeva/AzureSignalRConsoleApp) and update to v1 of [SignalR API](https://github.com/Azure/azure-signalr/blob/dev/docs/swagger/v1.json)
