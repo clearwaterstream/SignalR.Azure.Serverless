@@ -32,7 +32,7 @@ namespace SignalR.Azure.Serverless.Test
                 arguments = new object[] { "device_1", "offline" }
             };
 
-            await signalRApiClient.BroadcastToAllClients("usex-x", "default_hub", msg);
+            await signalRApiClient.BroadcastToAllClients("user-x", "default_hub", msg);
 
             output.WriteLine("msg sent");
         }
@@ -40,6 +40,8 @@ namespace SignalR.Azure.Serverless.Test
         public void Dispose()
         {
             signalRApiHttpClient?.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }
